@@ -17,6 +17,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "API_BASE_URL", "\"" + getApiBaseUrl() + "\""
+        buildConfigField "String", "GBOOKS_API_KEY", "\"" + getGBooksApiKey() + "\""
     }
 
     buildTypes {
@@ -60,4 +63,27 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     //preference
     implementation 'androidx.preference:preference-ktx:1.1.1'
+}
+
+def getApiBaseUrl() {
+    String apiBaseUrl = getLocalProperties().getProperty("api_base_url")
+    if(apiBaseUrl==null)
+        throw new GradleException("Add 'api_base_url' field at local.properties file. For more details: https://github.com/hasancse91/weather-app-android-mvp-architecture/blob/master/README.md")
+
+    return apiBaseUrl
+}
+
+def getGBooksApiKey() {
+    String gBooksApiKey = getLocalProperties().getProperty("gbooks_api_key")
+    if(gBooksApiKey==null)
+        throw new GradleException("Add 'gbooks_api_key' field at local.properties file. For more details: https://github.com/hasancse91/weather-app-android-mvp-architecture/blob/master/README.md")
+
+    return gBooksApiKey
+}
+
+def getLocalProperties() {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    return properties
 }

@@ -15,24 +15,16 @@ class MainPresenter(private var mView: MainContract.View?): MainContract.Present
 
     override fun onViewCreated(isRestored: Boolean) {
         mView?.let {
-            FragmentManager.init(it.getMainFragmentManager(), it.getBottomNavigation(), it.getFragmentHolderId(), isRestored)
+            FragmentManager.init(it.getMainFragmentManager(), it.getFragmentHolderId(), isRestored)
         }
 
     }
-/*
+
     override fun onDestroy() {
         mView = null
-        FragMan.destroy()
+        FragmentManager.destroy()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putSerializable(FragMan.HISTORY_KEY, FragMan.getHistory())
-        outState.putInt(FragMan.CURRENT_TAB_KEY, FragMan.getCurrentTab())
-    }
-
-    override fun onRestoreInstanceState(savedState: Bundle) {
-        savedState.getSerializable(FragMan.HISTORY_KEY)?.let { FragMan.setHistory(it)  }
-        savedState.getInt(FragMan.CURRENT_TAB_KEY)?.let { FragMan.setCurrentTab(it) }
-    }*/
-
+    override fun onSaveInstanceState(outState: Bundle) {}
+    override fun onRestoreInstanceState(savedState: Bundle) {}
 }

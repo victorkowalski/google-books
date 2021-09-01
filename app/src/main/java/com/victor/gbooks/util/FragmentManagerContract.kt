@@ -10,8 +10,8 @@ abstract class FragmentManagerContract {
 
     abstract fun init(fragmentManager: FragmentManager, containerId: Int, isRestored: Boolean)
 
-    abstract fun addFragment(fragment: BaseFragment, tag: String? = null, inStack: Boolean? = true, addAndHide: Boolean? = false)
-    abstract fun initRootFragment()
+    abstract fun replaceFragment(containerId: Int, fragment: BaseFragment, tag: String? = null)
+    abstract fun initSearchFragment()
     abstract fun getHistory(): Array<ArrayList<String>>
     abstract fun setHistory(history: Serializable)
     abstract fun getActiveFragment(tabIndex: Int): Fragment?

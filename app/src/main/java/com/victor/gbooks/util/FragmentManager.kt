@@ -1,29 +1,38 @@
 package com.victor.gbooks.util
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.victor.gbooks.R
 import com.victor.gbooks.ui.base.BaseFragment
+import com.victor.gbooks.ui.search.SearchPresenter
 import java.io.Serializable
 
 object FragmentManager : FragmentManagerContract() {
 
+    private var mFragmentManager: FragmentManager? = null
+
     override fun init(fragmentManager: FragmentManager, containerId: Int, isRestored: Boolean) {
 
         mFragmentManager = fragmentManager
-        mHistory = Array(bottomNavigationView.menu.size()) { arrayListOf<String>() }
-        mContainerId = containerId
         if(!isRestored)
-            initRootFragments()
-        setBottomNavigationListener()
+            initSearchFragment()
     }
 
-    override fun addFragment(fragment: BaseFragment, tag: String?, inStack: Boolean?, addAndHide: Boolean?) {
-        TODO("Not yet implemented")
+    override fun replaceFragment(containerId: Int, fragment: BaseFragment, tag: String?) {
+        mFragmentManager
+                ?.beginTransaction()
+                ?.replace(containerId, fragment, tag)
+                ?.commit()
     }
 
-    override fun initRootFragment() {
-        TODO("Not yet implemented")
+    override fun initSearchFragment() {
+        val searchFragment = SearchPresenter.newInstance(Bundle().also {
+            it.putString(
+                    SearchPresenter.KEY_TITLE, "Search")
+        })
+
+        replaceFragment(R.id.container_main, searchFragment, "search")
     }
 
     override fun getHistory(): Array<ArrayList<String>> {

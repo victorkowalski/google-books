@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:launchMode="singleTop"
         android:theme="@style/Theme.Googlebooks">
-    <activity android:name=".main.MainActivity">
+    <activity android:name=".ui.main.MainActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
